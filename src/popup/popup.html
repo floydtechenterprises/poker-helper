@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../popup/popup.css">
+</head>
+<body>
+  <div class="popup">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">PA</div>
+      <div>
+        <h1>Poker Advisor</h1>
+        <p class="subtitle" id="status-text">Not connected</p>
+      </div>
+    </div>
+
+    <!-- Game Control -->
+    <div class="section" id="game-control">
+      <!--
+        No game link and no typed balance.
+
+        Both were PokerNow's shape: there a game is a URL you paste, and the
+        extension had no way to know what you sat down with. Here the table
+        is found by its origin and your stack is on screen, so asking for
+        either would be asking for something already known.
+      -->
+      <p class="desc" id="start-hint">Open your table, then press Start.</p>
+
+      <button id="start-btn" class="btn-primary btn-full">Start game</button>
+      <button id="stop-btn" class="btn-danger btn-full hidden">Stop</button>
+    </div>
+
+    <!-- Live Advice Panel -->
+    <div class="section hidden" id="advice-section">
+      <div class="balance-display">
+        <div class="balance-item">
+          <span class="balance-label">Starting</span>
+          <span class="balance-value" id="display-starting">—</span>
+        </div>
+        <div class="balance-item">
+          <span class="balance-label">Current</span>
+          <span class="balance-value" id="display-current">—</span>
+        </div>
+        <div class="balance-item">
+          <span class="balance-label">Profit</span>
+          <span class="balance-value" id="display-profit">—</span>
+        </div>
+      </div>
+
+      <div id="advice-box" class="advice-box">
+        <div class="advice-waiting">Waiting for your turn...</div>
+      </div>
+
+      <div id="hand-info-box" class="hand-info-box hidden"></div>
+
+      <div id="learning-stats" class="learning-stats hidden">
+        <h3>Session Stats</h3>
+        <div class="stats-grid" id="session-stats-grid"></div>
+      </div>
+    </div>
+
+    <!-- Session History -->
+    <div class="section">
+      <div class="section-header" id="history-toggle">
+        <h2>Session History</h2>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+      <div id="history-body" style="display:none">
+        <div id="history-totals" class="history-totals"></div>
+        <div id="history-list" class="history-list"></div>
+      </div>
+    </div>
+
+    <!-- What It Has Learned -->
+    <div class="section">
+      <div class="section-header" id="learning-toggle">
+        <h2>What It Has Learned</h2>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+      <div id="learning-body" style="display:none">
+        <div id="learning-content"></div>
+        <button id="self-check-btn" class="btn-secondary btn-full">Prove it's applying what it learned</button>
+        <div id="self-check-results"></div>
+        <button id="reset-learning-btn" class="btn-link btn-danger-link">Reset learning data</button>
+      </div>
+    </div>
+
+    <!-- Live scraper diagnostics -->
+    <div class="section">
+      <div class="section-header" id="diag-toggle">
+        <h2>Table Read Check</h2>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+      <div id="diag-body" style="display:none">
+        <p class="desc">What the extension can currently see on the table — compare it against your screen to spot misreads.</p>
+        <button id="diag-refresh-btn" class="btn-secondary btn-full">Read table now</button>
+        <div id="diag-results"></div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="section">
+      <div class="section-header" id="settings-toggle">
+        <h2>Settings</h2>
+        <span class="toggle-arrow">&#9660;</span>
+      </div>
+      <div id="settings-body">
+        <label class="setting-row">
+          <span>Analysis speed</span>
+          <select id="mc-iterations">
+            <option value="2000">Fast</option>
+            <option value="5000" selected>Balanced</option>
+            <option value="10000">Accurate</option>
+            <option value="20000">Deep</option>
+          </select>
+        </label>
+        <label class="setting-row">
+          <span>Learning mode</span>
+          <select id="learning-mode">
+            <option value="on" selected>On — track and learn</option>
+            <option value="off">Off — fixed strategy</option>
+          </select>
+        </label>
+        <div class="setting-row">
+          <span>Hands in database</span>
+          <span id="hand-count">0</span>
+        </div>
+        <button id="export-btn" class="btn-link">Export hand history</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>v1.1.0 — Decision support only. No actions are automated.</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

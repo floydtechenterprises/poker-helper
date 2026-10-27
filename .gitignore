@@ -1,0 +1,27 @@
+# Dependencies — restored with `npm install`
+node_modules/
+
+# Build output.
+#
+# Chrome loads `dist/`, not `src/`, so after checking out an older commit you
+# MUST run `npm run build` before reloading the extension — otherwise Chrome
+# keeps running whatever was built last, which looks exactly like the rollback
+# not working.
+dist/
+
+# Empty file from a stray shell redirect
+0
+
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+desktop.ini
+
+# Throwaway reproduction scripts written during debugging
+*.tmp.ts
+*.tmp
+
+# The full decision log export: ~60MB, local only (GitHub caps files at 100MB)
+data/full-decision-log-export.json
